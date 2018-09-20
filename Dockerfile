@@ -12,4 +12,4 @@ ADD . /app
 
 EXPOSE 8000
 
-ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:8000", "wsgi:app", "--reload"]
+ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:8000", "wsgi:app", "--reload", "-t", "120"]
