@@ -7,6 +7,10 @@ RUN pip install --upgrade pip
 RUN pip install uwsgi
 RUN pip install gunicorn
 RUN pip install Flask
+RUN pip install numpy
+RUN pip install pillow
+RUN pip install keras
+RUN pip install tensorflow
 
 ADD . /app
 
