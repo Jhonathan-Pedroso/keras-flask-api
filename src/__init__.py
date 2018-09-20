@@ -3,8 +3,9 @@ import os
 from flask import (
     Flask,
     jsonify,
-    send_from_directory
+    request,
 )
+from werkzeug.utils import secure_filename
 from keras.applications import imagenet_utils
 from keras.preprocessing.image import img_to_array
 import numpy as np
@@ -17,13 +18,21 @@ app = Flask(__name__)
 model = None
 
 
-@app.route('/predict', methods=['GET', 'POST'])
+@app.route('/predict', methods=['POST'])
 def predict():
+    # Getting the image
+    if not request.files['image']:
+        return None
+
+    filename = secure_filename(request.files['image'].filename)
+    path = os.path.join(UPLOAD_FOLDER, filename)
+    request.files['image'].save(path)
+
+    # Apply predictions
     global model
     if model is None:
         model = load_model()
 
-    path = os.path.join(UPLOAD_FOLDER, 'beagle.jpg')
     image = Image.open(path)
     image = image.resize((224, 224))
     image = img_to_array(image)
