@@ -18,6 +18,11 @@ app = Flask(__name__)
 model = None
 
 
+@app.route('/status')
+def health_check():
+    return 'Up and running!'
+
+
 @app.route('/predict', methods=['POST'])
 def predict():
     # Getting the image

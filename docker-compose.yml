@@ -1,0 +1,12 @@
+version: '3'
+services:
+  flask:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    links:
+      - redis
+  redis:
+    image: redis
