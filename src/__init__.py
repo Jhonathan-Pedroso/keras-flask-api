@@ -9,13 +9,25 @@ from werkzeug.utils import secure_filename
 from keras.applications import imagenet_utils
 from keras.preprocessing.image import img_to_array
 import numpy as np
+import redis
 from PIL import Image
 
 from .constants import UPLOAD_FOLDER
 from .model import load_model
 
+REDIS_HOST = "redis"
+REDIS_PORT = 6379
+
 app = Flask(__name__)
 model = None
+
+db = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT)
+db.set('foo', 'bar')
+
+
+@app.route('/status/redis')
+def redis_check():
+    return db.get('foo')
 
 
 @app.route('/status')

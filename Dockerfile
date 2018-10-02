@@ -3,10 +3,11 @@ LABEL maintainer="raphaelm@sicara.com"
 
 WORKDIR /app
 
+ADD . /app
+
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-ADD . /app
 
 EXPOSE 8000
 
